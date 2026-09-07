@@ -157,8 +157,9 @@ ScamShield AI aims to provide an additional layer of protection by analyzing pot
 * Model version management
 * Prediction monitoring
 
-###MLOps dashboard 
+##MLOps dashboard 
 * python -m http.server 8000
+* http://localhost:8000/dashboard.html
 ---
 
 ## 📱 Main Modules
