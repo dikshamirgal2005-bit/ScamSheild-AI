@@ -45,10 +45,22 @@ class ModelRegistry:
         except Exception:
             return {"catalog_version": "1.0", "models": {}}
 
+    @staticmethod
+    def _sanitize_for_json(obj: Any) -> Any:
+        """Recursively replace NaN/Inf float values with None so JSON stays RFC-compliant."""
+        import math
+        if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+            return None
+        if isinstance(obj, dict):
+            return {k: ModelRegistry._sanitize_for_json(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [ModelRegistry._sanitize_for_json(v) for v in obj]
+        return obj
+
     def _write_catalog(self, catalog: Dict[str, Any]) -> None:
-        """Writes master catalog JSON."""
+        """Writes master catalog JSON (RFC-compliant, no NaN/Infinity)."""
         with open(self.catalog_file, "w", encoding="utf-8") as f:
-            json.dump(catalog, f, indent=2)
+            json.dump(self._sanitize_for_json(catalog), f, indent=2)
 
     def register_model(
         self,
@@ -94,7 +106,8 @@ class ModelRegistry:
             "stage": status,
             "metrics": metrics,
             "parameters": parameters,
-            "artifacts_path": str(target_dir),
+            # Store as portable relative path (relative to mlops root) so it works cross-platform
+            "artifacts_path": f"models/{model_name}/{version}",
         }
 
         # Check for existing evaluation results to attach
@@ -112,7 +125,7 @@ class ModelRegistry:
 
         meta_path = target_dir / "metadata.json"
         with open(meta_path, "w", encoding="utf-8") as f:
-            json.dump(metadata, f, indent=2)
+            json.dump(self._sanitize_for_json(metadata), f, indent=2)
 
         catalog = self._read_catalog()
         if model_name not in catalog["models"]:
@@ -130,7 +143,7 @@ class ModelRegistry:
             "dataset_version": dataset_version or "v1.0.0",
             "status": metadata["status"],
             "metrics": metrics,
-            "path": str(target_dir),
+            "path": f"models/{model_name}/{version}",
         }
 
         if status == "Production":
@@ -183,7 +196,7 @@ class ModelRegistry:
                 meta["status"] = "Rejected"
                 meta["stage"] = "Rejected"
                 with open(meta_path, "w", encoding="utf-8") as f:
-                    json.dump(meta, f, indent=2)
+                    json.dump(self._sanitize_for_json(meta), f, indent=2)
                 m_info["versions"][version]["status"] = "Rejected"
                 self._write_catalog(catalog)
                 reasons = "; ".join(val_res["rejection_reasons"])
@@ -196,7 +209,7 @@ class ModelRegistry:
         meta["promoted_at"] = datetime.now(timezone.utc).isoformat()
 
         with open(meta_path, "w", encoding="utf-8") as f:
-            json.dump(meta, f, indent=2)
+            json.dump(self._sanitize_for_json(meta), f, indent=2)
 
         m_info["versions"][version]["status"] = stage_title
 
@@ -213,7 +226,7 @@ class ModelRegistry:
                         o_meta["status"] = "Archived"
                         o_meta["stage"] = "Archived"
                         with open(old_meta_path, "w", encoding="utf-8") as f:
-                            json.dump(o_meta, f, indent=2)
+                            json.dump(self._sanitize_for_json(o_meta), f, indent=2)
                     except Exception:
                         pass
             m_info["production"] = version
