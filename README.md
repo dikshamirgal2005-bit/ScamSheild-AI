@@ -1,286 +1,250 @@
 # 🛡️ ScamShield AI
 
-**ScamShield AI** is an AI-powered mobile application designed to detect potential scams and help users understand why a message, email, URL, screenshot, or payment request may be risky.
+**ScamShield AI** is an AI-powered cybersecurity application designed to protect users from phishing, scams, and malicious online content.
 
-The system uses **Machine Learning and MLOps practices** to provide scam detection, risk scoring, explainable results, model versioning, monitoring, feedback, and controlled model retraining.
-
-> ⚠️ ScamShield AI provides a **risk assessment**, not a guaranteed determination that something is a scam.
+The application analyzes **URLs, emails, and supported messaging notifications**, identifies suspicious patterns, calculates a risk level, and alerts the user when potential scam content is detected.
 
 ---
 
 ## 🚀 Features
 
-* 📱 **Message Scam Detection**
-* 📧 **Email Scam Analysis**
-* 🔗 **Suspicious URL Detection**
-* 🖼️ **Screenshot Scam Analysis**
-* 🎙️ **Voice Scam Analysis**
-* 🎭 **Impersonation Detection**
-* 🧠 **Psychological Manipulation Detection**
-* 📊 **Scam Risk Score (0–100)**
-* 🔍 **Explainable AI – "Why was this flagged?"**
-* 🏷️ **Scam Type Classification**
-* 💡 **Recommended Safety Actions**
-* 📚 **Scam Awareness & Education**
-* 📝 **Community Scam Reporting**
-* 📈 **Scam Trend Analysis**
-* 🔄 **User Feedback & Model Improvement**
+### 🔗 URL Analyzer
+
+Analyze a website URL and determine whether it is:
+
+* ✅ Safe
+* ⚠️ Suspicious
+* 🚨 Malicious/Phishing
+
+The analyzer examines URL characteristics and uses the detection system to generate a risk assessment.
+
+### 📧 Email Analyzer
+
+Analyze email content to identify potential phishing or scam messages.
+
+It can detect indicators such as:
+
+* Urgent requests
+* Suspicious links
+* Fake account warnings
+* Prize/reward scams
+* Requests for sensitive information
+* Phishing-related language
+
+### 📱 Automatic Message Detection
+
+ScamShield AI is designed to analyze supported incoming messaging notifications.
+
+When a suspicious message is detected, the application can provide an alert such as:
+
+> 🚨 Suspicious Message Detected
+> Risk Level: High
+> This message may be a phishing/scam attempt.
+
+### 🔔 Scam Notifications
+
+Users receive alerts when potentially dangerous content is identified.
+
+### 📊 Security Dashboard
+
+The dashboard provides security insights such as:
+
+* Total scans
+* Safe detections
+* Suspicious detections
+* Risk levels
+* Recent activity
+* Scan history
+
+### 🤖 AI/ML Detection
+
+The application uses machine-learning/detection models to identify patterns associated with suspicious content and generate risk assessments.
+
+### ⚙️ MLOps Monitoring
+
+MLOps is used to monitor the ML system after deployment.
+
+It can track:
+
+* Model accuracy
+* Precision
+* Recall
+* F1-score
+* Prediction statistics
+* Model versions
+* Prediction latency
+* Model/data performance over time
+
+This helps identify when the model needs improvement or retraining.
+
+### 📝 Scan History
+
+Previous analyses are stored so users can review their security activity.
 
 ---
 
-## 🤖 Machine Learning
-
-The project is designed around multiple ML models:
-
-### 1. Message Scam Classifier
-
-Detects whether a message is potentially suspicious.
-
-### 2. Scam Type Classifier
-
-Classifies suspicious content into categories such as:
-
-* Banking
-* Job
-* Investment
-* Shopping
-* Romance
-* Lottery
-* Delivery
-* Government
-* Tech Support
-
-### 3. URL Risk Classifier
-
-Analyzes URL characteristics to identify potentially suspicious links.
-
----
-
-## ⚙️ MLOps
-
-ScamShield AI follows an MLOps lifecycle:
+## 🔄 System Workflow
 
 ```text
-Dataset
-   ↓
-Dataset Versioning
-   ↓
-Data Preprocessing
-   ↓
-Model Training
-   ↓
-Model Evaluation
-   ↓
-Model Validation
-   ↓
-Model Registry
-   ↓
-Model Deployment
-   ↓
-Mobile Application
-   ↓
-Prediction Monitoring
-   ↓
-User Feedback
-   ↓
-Controlled Retraining
+             User
+               │
+               ▼
+       URL / Email / Message
+               │
+               ▼
+        ScamShield Analyzer
+               │
+               ▼
+        Feature Extraction
+               │
+               ▼
+          AI / ML Model
+               │
+               ▼
+         Risk Assessment
+               │
+       ┌───────┴────────┐
+       ▼                ▼
+    Safe           Suspicious
+       │                │
+       ▼                ▼
+   Safe Result      Alert User
+                         │
+                         ▼
+                   Scan History
+                         │
+                         ▼
+                     Dashboard
+                         │
+                         ▼
+                  MLOps Monitoring
 ```
-
-### MLOps practices used
-
-* Dataset versioning
-* Data preprocessing pipelines
-* Model training pipelines
-* Model evaluation
-* Model versioning
-* Model registry
-* Model validation
-* Model deployment
-* Prediction monitoring
-* User feedback collection
-* Controlled model retraining
 
 ---
 
-## 🏗️ System Architecture
+## 🧠 Why ScamShield AI?
 
-```text
-User
- │
- ▼
-ScamShield AI Mobile App
- │
- ├── Message
- ├── Email
- ├── Screenshot
- ├── URL
- └── Voice
- │
- ▼
-Data / Text Extraction
- │
- ▼
-ML Detection Engine
- │
- ├── Scam Detection
- ├── Scam Type Classification
- ├── URL Risk Detection
- └── Manipulation Detection
- │
- ▼
-Risk Engine
- │
- ▼
-Risk Score + Explanation
- │
- ▼
-Recommended Safety Action
- │
- ▼
-User Feedback
- │
- ▼
-MLOps Pipeline
- │
- └── Monitoring → Evaluation → Retraining → New Model Version
-```
+Online scams and phishing attacks are becoming increasingly common. Users often receive suspicious links and messages through different communication platforms.
+
+ScamShield AI aims to provide an additional layer of protection by analyzing potentially dangerous content and warning users before they interact with it.
 
 ---
 
 ## 🛠️ Technology Stack
 
-### Mobile Application
+### Frontend
 
 * React Native
-* Expo
 * JavaScript
-* React Native StyleSheet
+* Expo
 
-### Machine Learning
+### AI / ML
 
-* Python
-* Scikit-learn
-* Machine Learning classification models
-* Feature engineering
-* Model evaluation
+* Machine Learning
+* URL/Message Feature Analysis
+* Risk Scoring
 
-### Backend
+### Backend / Services
 
-* Python API
-* REST API
+* API-based analysis
+* Database for scan history
+* Authentication
 
 ### MLOps
 
-* Dataset Versioning
-* Model Versioning
-* Model Registry
-* Model Evaluation
-* Monitoring
-* Feedback Loop
-* Controlled Retraining
-* CI/CD
+* Model monitoring
+* Model performance tracking
+* Model version management
+* Prediction monitoring
+
+###MLOps dashboard 
+* python -m http.server 8000
+---
+
+## 📱 Main Modules
+
+| Module               | Purpose                             |
+| -------------------- | ----------------------------------- |
+| 🔗 URL Analyzer      | Detect suspicious websites          |
+| 📧 Email Analyzer    | Detect phishing/scam emails         |
+| 📱 Message Detection | Analyze supported incoming messages |
+| 🔔 Notifications     | Warn users about suspicious content |
+| 📊 Dashboard         | Display security insights           |
+| 📝 Scan History      | Store previous analyses             |
+| 🤖 ML Model          | Perform intelligent detection       |
+| ⚙️ MLOps             | Monitor ML performance              |
 
 ---
 
-## 📂 Project Structure
+## 🎯 Project Objective
 
-```text
-ScamShieldAI/
-│
-├── mobile/
-│   ├── screens/
-│   ├── components/
-│   ├── services/
-│   └── assets/
-│
-├── backend/
-│   ├── api/
-│   ├── models/
-│   └── services/
-│
-├── ml/
-│   ├── datasets/
-│   ├── preprocessing/
-│   ├── training/
-│   ├── evaluation/
-│   ├── inference/
-│   └── artifacts/
-│
-├── tests/
-│
-├── config/
-│
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
+The main objective of ScamShield AI is to build an intelligent security assistant that can:
+
+1. Detect suspicious URLs.
+2. Identify phishing and scam emails.
+3. Analyze supported incoming messages.
+4. Warn users about potential scams.
+5. Provide risk scores and explanations.
+6. Maintain scan history.
+7. Provide security analytics through a dashboard.
+8. Monitor the ML model using MLOps.
 
 ---
 
-## 📊 Risk Assessment
+## 🔐 Security & Privacy
 
-ScamShield AI generates an overall risk score between **0 and 100**.
+ScamShield AI should follow privacy-first principles when processing user content.
 
-The score can consider factors such as:
+The application should:
 
-* Urgency
-* Payment requests
-* Impersonation
-* Suspicious URLs
-* Emotional pressure
-* Requests for sensitive information
-
-The application also explains the factors contributing to the risk score.
+* Minimize unnecessary data collection.
+* Avoid storing sensitive message content unnecessarily.
+* Protect stored scan information.
+* Clearly communicate required permissions.
+* Process only the content necessary for scam detection.
 
 ---
 
-## 🔄 Model Improvement
+## ⚠️ Platform Limitations
 
-User feedback can be used to improve future versions of the ML models.
+Automatic message detection depends on operating-system permissions and platform restrictions.
 
-```text
-Prediction
-     ↓
-User Feedback
-     ↓
-Labeled Data
-     ↓
-Dataset Update
-     ↓
-Model Retraining
-     ↓
-Model Evaluation
-     ↓
-New Model Version
-     ↓
-Deployment
-```
+For example, Android provides different capabilities for SMS and third-party messaging applications. WhatsApp content cannot simply be accessed directly by a normal third-party application.
 
-Retraining is **controlled and evaluated** before a new model is deployed.
+Therefore, supported message detection should use only APIs/notification mechanisms permitted by the platform and explicitly granted by the user.
 
 ---
 
-## 🎯 Project Goal
+## 🌟 Future Enhancements
 
-The main goal of ScamShield AI is to help users:
+Possible future improvements include:
 
-1. Identify potentially fraudulent content.
-2. Understand the warning signs.
-3. Recognize common scam techniques.
-4. Avoid unsafe payments and information sharing.
-5. Make safer decisions when interacting with suspicious content.
-
----
-
-## ⚠️ Disclaimer
-
-ScamShield AI is an assistive security tool and should not be considered a guarantee that content is safe or fraudulent. Users should independently verify suspicious requests through trusted sources.
+* More messaging-platform integrations
+* Improved phishing detection models
+* Multilingual scam detection
+* Voice scam detection
+* Image-based scam detection
+* Browser protection
+* Explainable AI
+* Improved real-time threat intelligence
+* Automatic model retraining
+* Advanced MLOps monitoring
 
 ---
 
 ## 👩‍💻 Project
 
-**Project:** ScamShield AI
-**Category:** AI / Machine Learning / MLOps / Mobile Application
+**Project Name:** ScamShield AI
+**Category:** AI + Cybersecurity
 **Platform:** Android
-**Purpose:** Scam Detection and Awareness
+**Application Type:** Mobile Security Application
+
+---
+
+## 📌 Conclusion
+
+ScamShield AI combines **Artificial Intelligence, Machine Learning, Mobile Development, Cybersecurity, and MLOps** to create an intelligent system for detecting and warning users about potential scams and phishing attacks.
+
+The goal is simple:
+
+> **Detect the scam. Explain the risk. Warn the user. Protect the user.**
