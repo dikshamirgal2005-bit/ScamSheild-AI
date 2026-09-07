@@ -1,0 +1,140 @@
+{
+  "catalog_version": "1.0",
+  "datasets": {
+    "messages": {
+      "latest": "v1.1.0",
+      "versions": {
+        "v1.0.0": {
+          "version": "v1.0.0",
+          "creation_date": "2026-09-05T16:04:02.959971+00:00",
+          "num_records": 4,
+          "features": [
+            "id",
+            "text",
+            "target"
+          ],
+          "labels": {
+            "label_column": "label",
+            "classes": [
+              "safe",
+              "scam"
+            ],
+            "distribution": {
+              "scam": 2,
+              "safe": 2
+            }
+          },
+          "file_format": "json",
+          "checksum_sha256": "f7e6ff7aafd783f514c7ee11aa21721a174005213a8c19d44f6692e09a7210e1",
+          "description": "Baseline message scam dataset",
+          "path": "d:\\ScamSheild AI\\mlops\\data\\versions\\messages\\v1.0.0",
+          "file": "d:\\ScamSheild AI\\mlops\\data\\versions\\messages\\v1.0.0\\dataset.json"
+        },
+        "v1.1.0": {
+          "version": "v1.1.0",
+          "creation_date": "2026-09-06T07:26:01.985290+00:00",
+          "num_records": 8,
+          "features": [
+            "id",
+            "text",
+            "target"
+          ],
+          "labels": {
+            "label_column": "label",
+            "classes": [
+              "danger",
+              "safe",
+              "scam"
+            ],
+            "distribution": {
+              "scam": 2,
+              "safe": 2,
+              "danger": 4
+            }
+          },
+          "file_format": "json",
+          "checksum_sha256": "c69f1065be018fcca140ef08a629ad701b246241ec179ae15dd4c41e734dafc9",
+          "description": "Retraining dataset version v1.1.0 with 4 feedback samples",
+          "path": "D:\\ScamSheild AI\\mlops\\data\\versions\\messages\\v1.1.0",
+          "file": "D:\\ScamSheild AI\\mlops\\data\\versions\\messages\\v1.1.0\\dataset.json"
+        }
+      }
+    },
+    "scam_types": {
+      "latest": "v1.0.0",
+      "versions": {
+        "v1.0.0": {
+          "version": "v1.0.0",
+          "creation_date": "2026-09-05T16:04:02.969327+00:00",
+          "num_records": 9,
+          "features": [
+            "id",
+            "text"
+          ],
+          "labels": {
+            "label_column": "category",
+            "classes": [
+              "impersonation",
+              "investment_crypto",
+              "job_recruitment",
+              "lottery_advance_fee",
+              "phishing",
+              "romance_pig_butchering",
+              "smishing",
+              "tech_support",
+              "vishing"
+            ],
+            "distribution": {
+              "phishing": 1,
+              "vishing": 1,
+              "smishing": 1,
+              "lottery_advance_fee": 1,
+              "investment_crypto": 1,
+              "impersonation": 1,
+              "romance_pig_butchering": 1,
+              "tech_support": 1,
+              "job_recruitment": 1
+            }
+          },
+          "file_format": "json",
+          "checksum_sha256": "fb7b97abbee595979697d1c7aa33f36652e37617ae71ccbaed53ab6d2fddad6c",
+          "description": "Baseline 9-class scam taxonomy dataset",
+          "path": "d:\\ScamSheild AI\\mlops\\data\\versions\\scam_types\\v1.0.0",
+          "file": "d:\\ScamSheild AI\\mlops\\data\\versions\\scam_types\\v1.0.0\\dataset.json"
+        }
+      }
+    },
+    "urls": {
+      "latest": "v1.0.0",
+      "versions": {
+        "v1.0.0": {
+          "version": "v1.0.0",
+          "creation_date": "2026-09-05T16:04:02.996231+00:00",
+          "num_records": 5,
+          "features": [
+            "url",
+            "label"
+          ],
+          "labels": {
+            "label_column": "status",
+            "classes": [
+              "danger",
+              "safe",
+              "warning"
+            ],
+            "distribution": {
+              "danger": 2,
+              "warning": 1,
+              "safe": 2
+            }
+          },
+          "file_format": "json",
+          "checksum_sha256": "069195c17f4e23361dc38e4568cf14ada2416bc667066ca2bc1757f6f011f3be",
+          "description": "Baseline URL threat dataset",
+          "path": "d:\\ScamSheild AI\\mlops\\data\\versions\\urls\\v1.0.0",
+          "file": "d:\\ScamSheild AI\\mlops\\data\\versions\\urls\\v1.0.0\\dataset.json"
+        }
+      }
+    }
+  }
+}

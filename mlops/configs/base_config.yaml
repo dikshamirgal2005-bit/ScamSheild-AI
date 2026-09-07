@@ -1,0 +1,15 @@
+﻿project:
+  name: ScamShield-AI-MLOps
+  version: 1.0.0
+  environment: local
+
+seed: 42
+
+tracking:
+  mlflow_enabled: false
+  experiment_name: scamshield-threat-detection
+
+paths:
+  data_dir: data
+  models_dir: models
+  configs_dir: configs

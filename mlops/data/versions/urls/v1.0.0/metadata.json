@@ -1,0 +1,29 @@
+{
+  "dataset_name": "urls",
+  "version": "v1.0.0",
+  "creation_date": "2026-09-05T16:04:02.996231+00:00",
+  "num_records": 5,
+  "features": [
+    "url",
+    "label"
+  ],
+  "label_column": "status",
+  "labels": {
+    "label_column": "status",
+    "classes": [
+      "danger",
+      "safe",
+      "warning"
+    ],
+    "distribution": {
+      "danger": 2,
+      "warning": 1,
+      "safe": 2
+    }
+  },
+  "checksum_sha256": "069195c17f4e23361dc38e4568cf14ada2416bc667066ca2bc1757f6f011f3be",
+  "file_format": "json",
+  "file_size_bytes": 528,
+  "description": "Baseline URL threat dataset",
+  "file_path": "d:\\ScamSheild AI\\mlops\\data\\versions\\urls\\v1.0.0\\dataset.json"
+}

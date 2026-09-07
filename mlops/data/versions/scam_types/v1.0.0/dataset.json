@@ -1,0 +1,47 @@
+﻿[
+  {
+    "id": "st_001",
+    "text": "Your SBI account debit card is suspended. Verify KYC and PAN details at http://sbi-secure.xyz to reactivate.",
+    "category": "phishing"
+  },
+  {
+    "id": "st_002",
+    "text": "Urgent call received from fake bank manager asking to share OTP to stop fraudulent transaction.",
+    "category": "vishing"
+  },
+  {
+    "id": "st_003",
+    "text": "Electricity bill unpaid! Power will be disconnected tonight. Call officer at 9876543210 immediately.",
+    "category": "smishing"
+  },
+  {
+    "id": "st_004",
+    "text": "You won 2.5 Crore in Kaun Banega Crorepati lucky draw! Deposit registration fee Rs 15,000 to claim prize.",
+    "category": "lottery_advance_fee"
+  },
+  {
+    "id": "st_005",
+    "text": "Guaranteed 300% profit in 7 days on crypto trading platform. Transfer minimum 0.05 BTC to secure investment pool.",
+    "category": "investment_crypto"
+  },
+  {
+    "id": "st_006",
+    "text": "Police Department Notice: An arrest warrant has been issued against your Aadhaar card for money laundering. Join digital custody video call.",
+    "category": "impersonation"
+  },
+  {
+    "id": "st_007",
+    "text": "Hello my dear, I am an oil rig engineer in Dubai. I sent you a gift parcel with gold jewelry, please pay clearance duty to release.",
+    "category": "romance_pig_butchering"
+  },
+  {
+    "id": "st_008",
+    "text": "Critical Alert! Your Windows computer has been infected with Trojan spyware. Download AnyDesk and call Microsoft support 1800-000-000.",
+    "category": "tech_support"
+  },
+  {
+    "id": "st_009",
+    "text": "Daily income Rs 8000 online work from home! Simple YouTube like and review tasks. Registration fee Rs 499 refundable.",
+    "category": "job_recruitment"
+  }
+]

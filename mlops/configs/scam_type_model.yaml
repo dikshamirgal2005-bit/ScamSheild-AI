@@ -1,0 +1,26 @@
+﻿model:
+  name: scamshield-scam-type-classifier
+  task: multiclass_classification
+  architecture: roberta-base-multiclass
+  num_classes: 9
+  categories:
+    - phishing
+    - vishing
+    - smishing
+    - lottery_advance_fee
+    - investment_crypto
+    - impersonation
+    - romance_pig_butchering
+    - tech_support
+    - job_recruitment
+
+training:
+  epochs: 8
+  batch_size: 16
+  learning_rate: 0.0005
+  optimizer: adamw
+  seed: 42
+
+paths:
+  train_data: data/sample/sample_scam_types.json
+  output_dir: models/scam_type_model

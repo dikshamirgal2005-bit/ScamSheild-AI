@@ -1,0 +1,28 @@
+{
+  "dataset_name": "messages",
+  "version": "v1.0.0",
+  "creation_date": "2026-09-05T16:04:02.959971+00:00",
+  "num_records": 4,
+  "features": [
+    "id",
+    "text",
+    "target"
+  ],
+  "label_column": "label",
+  "labels": {
+    "label_column": "label",
+    "classes": [
+      "safe",
+      "scam"
+    ],
+    "distribution": {
+      "scam": 2,
+      "safe": 2
+    }
+  },
+  "checksum_sha256": "f7e6ff7aafd783f514c7ee11aa21721a174005213a8c19d44f6692e09a7210e1",
+  "file_format": "json",
+  "file_size_bytes": 822,
+  "description": "Baseline message scam dataset",
+  "file_path": "d:\\ScamSheild AI\\mlops\\data\\versions\\messages\\v1.0.0\\dataset.json"
+}

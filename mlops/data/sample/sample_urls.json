@@ -1,0 +1,27 @@
+﻿[
+  {
+    "url": "http://secure-hdfc-update.xyz/login.php?token=123",
+    "status": "danger",
+    "label": 2
+  },
+  {
+    "url": "https://bit.ly/claim-free-voucher-500",
+    "status": "warning",
+    "label": 1
+  },
+  {
+    "url": "https://www.google.com/search?q=cybersecurity",
+    "status": "safe",
+    "label": 0
+  },
+  {
+    "url": "https://netbanking.hdfcbank.com/netbanking/",
+    "status": "safe",
+    "label": 0
+  },
+  {
+    "url": "http://192.168.1.100/verify-account",
+    "status": "danger",
+    "label": 2
+  }
+]

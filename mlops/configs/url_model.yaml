@@ -1,0 +1,30 @@
+﻿model:
+  name: scamshield-url-classifier
+  task: tabular_risk_classification
+  algorithm: xgboost-classifier
+  classes:
+    - safe
+    - warning
+    - danger
+
+features:
+  - char_length
+  - word_count
+  - is_ip
+  - has_at_symbol
+  - num_subdomains
+  - entropy
+  - has_suspicious_tld
+  - has_login_keyword
+  - is_https
+
+training:
+  n_estimators: 100
+  max_depth: 6
+  learning_rate: 0.05
+  subsample: 0.8
+  seed: 42
+
+paths:
+  train_data: data/sample/sample_urls.json
+  output_dir: models/url_model

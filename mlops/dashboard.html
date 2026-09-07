@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScamShield AI — MLOps Monitoring Dashboard</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --bg-hover: #334155;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --success: #22c55e;
+            --warning: #eab308;
+            --danger: #ef4444;
+            --purple: #a855f7;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-primary); color: var(--text-primary); font-family: var(--font-sans); padding: 28px 36px; line-height: 1.5; }
+        header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 24px; border-bottom: 1px solid var(--border-color); margin-bottom: 28px; }
+        .logo-group { display: flex; align-items: center; gap: 14px; }
+        .shield-icon { font-size: 32px; background: linear-gradient(135deg, #38bdf8, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        .subtitle { color: var(--text-secondary); font-size: 13px; }
+        .header-meta { display: flex; gap: 12px; align-items: center; }
+        .live-tag { background-color: rgba(34, 197, 94, 0.15); color: var(--success); padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .live-dot { width: 7px; height: 7px; border-radius: 50%; background-color: var(--success); box-shadow: 0 0 8px var(--success); }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; margin-bottom: 32px; }
+        .kpi-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px; transition: transform 0.15s ease, border-color 0.15s ease; }
+        .kpi-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+        .kpi-title { font-size: 13px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .kpi-value { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; color: var(--text-primary); }
+        .kpi-subtext { font-size: 12px; color: var(--text-secondary); }
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .section-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 22px; margin-bottom: 28px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { text-align: left; padding: 12px 14px; color: var(--text-secondary); font-weight: 600; border-bottom: 1px solid var(--border-color); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        td { padding: 13px 14px; border-bottom: 1px solid var(--border-color); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(255, 255, 255, 0.02); }
+        .num { text-align: right; font-family: var(--font-mono); }
+        th.num { text-align: right; }
+        .date { color: var(--text-secondary); font-size: 12px; font-family: var(--font-mono); }
+        code { font-family: var(--font-mono); background: rgba(255, 255, 255, 0.06); padding: 3px 6px; border-radius: 4px; font-size: 12px; }
+        .badge { display: inline-block; padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+        .badge-prod { background: rgba(34, 197, 94, 0.15); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.3); }
+        .badge-test { background: rgba(56, 189, 248, 0.15); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-dev { background: rgba(168, 85, 247, 0.15); color: var(--purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+        .badge-rejected { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-archived { background: rgba(148, 163, 184, 0.12); color: var(--text-secondary); border: 1px solid rgba(148, 163, 184, 0.25); }
+        .badge-latest { background: rgba(56, 189, 248, 0.12); color: var(--accent); font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
+        .format-tag { background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+        .pill-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+        .stat-pill { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 8px; display: flex; align-items: center; gap: 10px; }
+        .pill-label { font-size: 12px; color: var(--text-secondary); }
+        .pill-val { font-weight: 700; color: var(--text-primary); font-family: var(--font-mono); }
+        .model-fb-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+        .fb-card-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+        .fb-card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-size: 12px; }
+        .fb-card-grid span { color: var(--text-secondary); }
+        .text-accent { color: var(--accent); }
+        .text-success { color: var(--success); }
+        .text-danger { color: var(--danger); }
+        .text-subtle { color: var(--text-secondary); font-size: 12px; }
+        .font-bold { font-weight: 700; }
+        footer { margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; color: var(--text-secondary); font-size: 12px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-group">
+            <div class="shield-icon">🛡️</div>
+            <div>
+                <h1>ScamShield AI — MLOps Monitoring Dashboard</h1>
+                <div class="subtitle">Real-time model registry, dataset versioning, performance scorecards & telemetry</div>
+            </div>
+        </div>
+        <div class="header-meta">
+            <span class="live-tag"><span class="live-dot"></span> System Online</span>
+            <code>FastAPI Serving :8000</code>
+        </div>
+    </header>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">Active Production Models</div>
+            <div class="kpi-value text-success">3</div>
+            <div class="kpi-subtext">Across 4 registered versions</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Dataset Versions</div>
+            <div class="kpi-value text-accent">4</div>
+            <div class="kpi-subtext">Version snapshots tracked</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Predictions Monitored</div>
+            <div class="kpi-value">28</div>
+            <div class="kpi-subtext">Anonymized inference telemetry</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">User Feedback Submissions</div>
+            <div class="kpi-value text-accent">6</div>
+            <div class="kpi-subtext">100.0% User Accuracy Rate</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Retraining Candidates</div>
+            <div class="kpi-value text-purple">6</div>
+            <div class="kpi-subtext">Approved labeled samples ready</div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-title">
+            <span>🧠 Model Registry & Evaluation Scorecards</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Model Name</th>
+                    <th>Version</th>
+                    <th>Status / Stage</th>
+                    <th>Dataset Ver.</th>
+                    <th class="num">Accuracy</th>
+                    <th class="num">Precision</th>
+                    <th class="num">Recall</th>
+                    <th class="num">F1-Score</th>
+                    <th>Training Date (UTC)</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            <tr>
+                <td><strong>message_model</strong></td>
+                <td><code>v1.0.0</code></td>
+                <td><span class="badge badge-prod">Production</span></td>
+                <td><code>v1.0.0</code></td>
+                <td class="num">100.0%</td>
+                <td class="num">100.0%</td>
+                <td class="num">100.0%</td>
+                <td class="num font-bold text-accent">1.0000</td>
+                <td class="date">2026-09-05T16:16:09</td>
+            </tr>
+            
+            <tr>
+                <td><strong>message_model</strong></td>
+                <td><code>v1.1.0</code></td>
+                <td><span class="badge badge-rejected">Rejected</span></td>
+                <td><code>v1.1.0</code></td>
+                <td class="num">0.0%</td>
+                <td class="num">0.0%</td>
+                <td class="num">0.0%</td>
+                <td class="num font-bold text-accent">0.0000</td>
+                <td class="date">2026-09-06T07:26:02</td>
+            </tr>
+            
+            <tr>
+                <td><strong>scam_type_model</strong></td>
+                <td><code>v1.0.0</code></td>
+                <td><span class="badge badge-prod">Production</span></td>
+                <td><code>v1.0.0</code></td>
+                <td class="num">88.6%</td>
+                <td class="num">88.0%</td>
+                <td class="num">88.0%</td>
+                <td class="num font-bold text-accent">0.8800</td>
+                <td class="date">2026-09-05T16:16:09</td>
+            </tr>
+            
+            <tr>
+                <td><strong>url_model</strong></td>
+                <td><code>v1.0.0</code></td>
+                <td><span class="badge badge-prod">Production</span></td>
+                <td><code>v1.0.0</code></td>
+                <td class="num">100.0%</td>
+                <td class="num">100.0%</td>
+                <td class="num">100.0%</td>
+                <td class="num font-bold text-accent">1.0000</td>
+                <td class="date">2026-09-05T16:16:09</td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-container">
+        <div class="section-title">
+            <span>📦 Dataset Versioning Catalog</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dataset Name</th>
+                    <th>Version</th>
+                    <th class="num">Records</th>
+                    <th>Format</th>
+                    <th>SHA-256 Checksum</th>
+                    <th>Description</th>
+                    <th>Snapshot Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            <tr>
+                <td><strong>messages</strong> </td>
+                <td><code>v1.0.0</code></td>
+                <td class="num">4</td>
+                <td><span class="format-tag">JSON</span></td>
+                <td title="f7e6ff7aafd783f514c7ee11aa21721a174005213a8c19d44f6692e09a7210e1"><code>f7e6ff7aafd783...</code></td>
+                <td class="text-subtle">Baseline message scam dataset</td>
+                <td class="date">2026-09-05T16:04:02</td>
+            </tr>
+            
+            <tr>
+                <td><strong>messages</strong> <span class="badge badge-latest">Latest</span></td>
+                <td><code>v1.1.0</code></td>
+                <td class="num">8</td>
+                <td><span class="format-tag">JSON</span></td>
+                <td title="c69f1065be018fcca140ef08a629ad701b246241ec179ae15dd4c41e734dafc9"><code>c69f1065be018f...</code></td>
+                <td class="text-subtle">Retraining dataset version v1.1.0 with 4 feedback samples</td>
+                <td class="date">2026-09-06T07:26:01</td>
+            </tr>
+            
+            <tr>
+                <td><strong>scam_types</strong> <span class="badge badge-latest">Latest</span></td>
+                <td><code>v1.0.0</code></td>
+                <td class="num">9</td>
+                <td><span class="format-tag">JSON</span></td>
+                <td title="fb7b97abbee595979697d1c7aa33f36652e37617ae71ccbaed53ab6d2fddad6c"><code>fb7b97abbee595...</code></td>
+                <td class="text-subtle">Baseline 9-class scam taxonomy dataset</td>
+                <td class="date">2026-09-05T16:04:02</td>
+            </tr>
+            
+            <tr>
+                <td><strong>urls</strong> <span class="badge badge-latest">Latest</span></td>
+                <td><code>v1.0.0</code></td>
+                <td class="num">5</td>
+                <td><span class="format-tag">JSON</span></td>
+                <td title="069195c17f4e23361dc38e4568cf14ada2416bc667066ca2bc1757f6f011f3be"><code>069195c17f4e23...</code></td>
+                <td class="text-subtle">Baseline URL threat dataset</td>
+                <td class="date">2026-09-05T16:04:02</td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <div class="two-col">
+        <div class="section-container">
+            <div class="section-title">
+                <span>📈 Real-Time Prediction Telemetry</span>
+            </div>
+            <p class="text-subtle" style="margin-bottom: 14px;">
+                Privacy-Preserving Telemetry (SHA-256 text hashes, zero PII persisted)
+            </p>
+            <div style="margin-bottom: 16px;">
+                <div class="text-subtle">Average Risk Score: <strong>69.0/100</strong></div>
+                <div class="text-subtle">Average Confidence: <strong>0.69</strong></div>
+                <div class="text-subtle">Average Latency: <strong>0.08 ms</strong></div>
+            </div>
+            <div class="text-subtle font-bold" style="margin-bottom: 6px;">Risk Status Distribution:</div>
+            <div class="pill-group">
+                
+            <div class="stat-pill">
+                <span class="pill-label">Investment_crypto</span>
+                <span class="pill-val">8</span>
+            </div>
+            
+            <div class="stat-pill">
+                <span class="pill-label">Danger</span>
+                <span class="pill-val">12</span>
+            </div>
+            
+            <div class="stat-pill">
+                <span class="pill-label">Suspicious</span>
+                <span class="pill-val">8</span>
+            </div>
+            
+            </div>
+        </div>
+
+        <div class="section-container">
+            <div class="section-title">
+                <span>💬 User Feedback Loop & Retraining Signals</span>
+            </div>
+            <p class="text-subtle" style="margin-bottom: 14px;">
+                Feedback submitted via Mobile / Backend API (Correct vs. Incorrect)
+            </p>
+            <div>
+                
+            <div class="model-fb-card">
+                <div class="fb-card-title">message_model (<code>v1.0.0</code>)</div>
+                <div class="fb-card-grid">
+                    <div><span>Total:</span> <strong>6</strong></div>
+                    <div><span>Correct:</span> <strong class="text-success">6</strong></div>
+                    <div><span>Incorrect:</span> <strong class="text-danger">0</strong></div>
+                    <div><span>User Accuracy:</span> <strong class="text-accent">100.0%</strong></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div>ScamShield AI MLOps Pipeline — Demonstration & Monitoring Interface</div>
+        <div>React Native UI: Completely Independent & Untouched</div>
+    </footer>
+</body>
+</html>

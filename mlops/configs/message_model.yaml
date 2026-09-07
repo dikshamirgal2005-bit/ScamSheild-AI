@@ -1,0 +1,20 @@
+﻿model:
+  name: scamshield-message-classifier
+  task: binary_classification
+  architecture: deberta-v3-binary
+  num_labels: 2
+  classes:
+    - legitimate
+    - scam
+
+training:
+  epochs: 5
+  batch_size: 32
+  learning_rate: 0.001
+  optimizer: adamw
+  threshold: 0.5
+  seed: 42
+
+paths:
+  train_data: data/sample/sample_messages.json
+  output_dir: models/message_model

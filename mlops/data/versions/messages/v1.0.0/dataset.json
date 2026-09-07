@@ -1,0 +1,26 @@
+﻿[
+  {
+    "id": "msg_001",
+    "text": "Dear customer, your bank account is blocked due to incomplete KYC. Click http://bank-update.xyz to update immediately or account will be permanently deactivated.",
+    "label": "scam",
+    "target": 1
+  },
+  {
+    "id": "msg_002",
+    "text": "Your OTP for transaction of Rs 450.00 at Swiggy is 482910. Valid for 10 mins. Never share your OTP with anyone.",
+    "label": "safe",
+    "target": 0
+  },
+  {
+    "id": "msg_003",
+    "text": "Congratulations! You have been selected for Part-Time work from home. Earn Rs 5000 daily by liking videos. Contact HR on Telegram @Jobs2026.",
+    "label": "scam",
+    "target": 1
+  },
+  {
+    "id": "msg_004",
+    "text": "Hey Rahul, are we still meeting for dinner at 8pm tonight? Let me know.",
+    "label": "safe",
+    "target": 0
+  }
+]

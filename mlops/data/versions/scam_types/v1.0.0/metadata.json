@@ -1,0 +1,41 @@
+{
+  "dataset_name": "scam_types",
+  "version": "v1.0.0",
+  "creation_date": "2026-09-05T16:04:02.969327+00:00",
+  "num_records": 9,
+  "features": [
+    "id",
+    "text"
+  ],
+  "label_column": "category",
+  "labels": {
+    "label_column": "category",
+    "classes": [
+      "impersonation",
+      "investment_crypto",
+      "job_recruitment",
+      "lottery_advance_fee",
+      "phishing",
+      "romance_pig_butchering",
+      "smishing",
+      "tech_support",
+      "vishing"
+    ],
+    "distribution": {
+      "phishing": 1,
+      "vishing": 1,
+      "smishing": 1,
+      "lottery_advance_fee": 1,
+      "investment_crypto": 1,
+      "impersonation": 1,
+      "romance_pig_butchering": 1,
+      "tech_support": 1,
+      "job_recruitment": 1
+    }
+  },
+  "checksum_sha256": "fb7b97abbee595979697d1c7aa33f36652e37617ae71ccbaed53ab6d2fddad6c",
+  "file_format": "json",
+  "file_size_bytes": 1747,
+  "description": "Baseline 9-class scam taxonomy dataset",
+  "file_path": "d:\\ScamSheild AI\\mlops\\data\\versions\\scam_types\\v1.0.0\\dataset.json"
+}

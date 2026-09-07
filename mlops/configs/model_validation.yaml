@@ -1,0 +1,29 @@
+# ScamShield AI - Model Validation Configuration
+
+validation_rules:
+  enabled: true
+  require_champion_comparison: true
+  min_improvement_margin: 0.00
+
+models:
+  message_model:
+    primary_metric: f1
+    min_thresholds:
+      f1: 0.85
+      accuracy: 0.85
+      precision: 0.80
+      recall: 0.80
+
+  scam_type_model:
+    primary_metric: macro_f1
+    min_thresholds:
+      macro_f1: 0.80
+      accuracy: 0.80
+
+  url_model:
+    primary_metric: f1
+    min_thresholds:
+      f1: 0.85
+      accuracy: 0.85
+      precision: 0.80
+      recall: 0.80
