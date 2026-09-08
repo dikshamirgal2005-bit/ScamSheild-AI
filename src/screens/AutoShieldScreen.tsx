@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   ScrollView,
   StyleSheet,
   Switch,
@@ -73,8 +74,14 @@ const PRESET_SIMULATIONS = [
 
 export default function AutoShieldScreen() {
   const navigation = useNavigation<any>();
-  const { config, updateConfig, simulateIncomingMessage, interceptedAlerts, isProcessing } =
-    useAutoMessage();
+  const {
+    config,
+    updateConfig,
+    simulateIncomingMessage,
+    interceptedAlerts,
+    isProcessing,
+    openNotificationSettings,
+  } = useAutoMessage();
 
   const [customChannel, setCustomChannel] = useState<MessageChannel>('WhatsApp');
   const [customSender, setCustomSender] = useState('');
@@ -211,6 +218,36 @@ export default function AutoShieldScreen() {
             />
           </View>
         </View>
+
+        {/* Android Native Notification Access Card */}
+        {Platform.OS === 'android' && (
+          <View style={styles.permCard}>
+            <View style={styles.permHeader}>
+              <Text style={styles.permIcon}>🔔</Text>
+              <View style={styles.permInfo}>
+                <Text style={styles.permTitle}>Android Notification Access</Text>
+                <Text style={styles.permDesc}>
+                  Grant permission so ScamShield can intercept incoming SMS &amp; WhatsApp messages in real time.
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={styles.permButton}
+              activeOpacity={0.8}
+              onPress={async () => {
+                const opened = await openNotificationSettings();
+                if (!opened) {
+                  Alert.alert(
+                    'Manual Setup',
+                    'Go to Android Settings -> Special App Access -> Device & app notifications -> Enable ScamShield AI.'
+                  );
+                }
+              }}
+            >
+              <Text style={styles.permButtonText}>Open Android Settings to Enable →</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         {/* Monitored Channels */}
         <View style={styles.section}>
@@ -526,6 +563,52 @@ const styles = StyleSheet.create({
     fontSize: FontSize.xs,
     color: Colors.textSecondary,
     lineHeight: 18,
+  },
+  permCard: {
+    backgroundColor: '#EFF6FF',
+    borderWidth: 1.5,
+    borderColor: '#93C5FD',
+    borderRadius: BorderRadius.lg,
+    padding: Spacing.base,
+    marginBottom: Spacing.lg,
+  },
+  permHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: Spacing.sm,
+  },
+  permIcon: {
+    fontSize: 24,
+    marginRight: Spacing.sm,
+    marginTop: 2,
+  },
+  permInfo: {
+    flex: 1,
+  },
+  permTitle: {
+    fontSize: FontSize.sm,
+    fontWeight: FontWeight.bold,
+    color: '#1E40AF',
+    marginBottom: 2,
+  },
+  permDesc: {
+    fontSize: FontSize.xs,
+    color: '#1E3A8A',
+    lineHeight: 18,
+  },
+  permButton: {
+    backgroundColor: '#1D4ED8',
+    borderRadius: BorderRadius.sm,
+    paddingVertical: 9,
+    paddingHorizontal: Spacing.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 4,
+  },
+  permButtonText: {
+    color: '#FFFFFF',
+    fontSize: FontSize.xs,
+    fontWeight: FontWeight.bold,
   },
   section: {
     marginBottom: Spacing.lg,

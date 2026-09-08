@@ -18,6 +18,10 @@ import {
   MessageChannel,
   IncomingMessage,
 } from '../services/autoMessageDetector';
+import {
+  startNativeNotificationListener,
+  openAndroidNotificationAccessSettings,
+} from '../services/nativeNotificationListener';
 
 interface AutoMessageContextValue {
   config: AutoShieldConfig;
@@ -31,6 +35,7 @@ interface AutoMessageContextValue {
     sender: string,
     text: string
   ) => Promise<{ isScam: boolean; alert?: AutoScamAlert; resultPayload: any }>;
+  openNotificationSettings: () => Promise<boolean>;
 }
 
 const AutoMessageContext = createContext<AutoMessageContextValue | null>(null);
@@ -96,6 +101,16 @@ export function AutoMessageProvider({ children }: { children: React.ReactNode })
     []
   );
 
+  // Start Native Notification Listener for Android (WhatsApp, SMS, Telegram)
+  useEffect(() => {
+    const cleanup = startNativeNotificationListener();
+    return cleanup;
+  }, []);
+
+  const openNotificationSettings = useCallback(async () => {
+    return await openAndroidNotificationAccessSettings();
+  }, []);
+
   return (
     <AutoMessageContext.Provider
       value={{
@@ -106,6 +121,7 @@ export function AutoMessageProvider({ children }: { children: React.ReactNode })
         interceptedAlerts,
         isProcessing,
         simulateIncomingMessage,
+        openNotificationSettings,
       }}
     >
       {children}
