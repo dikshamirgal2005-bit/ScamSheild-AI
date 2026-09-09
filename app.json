@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ScamShield AI",
-    "slug": "scamshield-ai",
+    "slug": "scamsheildai",
     "scheme": "scamshieldai",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -30,8 +30,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "0f730202-6caa-4182-befe-086c044a418d"
+        "projectId": "0a145f11-fd4e-4bb0-87fd-d0e307589d44"
       }
-    }
+    },
+    "owner": "scamsheild"
   }
 }
